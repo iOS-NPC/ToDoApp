@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         
         toDoTableView.delegate = self
         toDoTableView.dataSource = self
-        
     }
     
     func makeNavigationBar() {
