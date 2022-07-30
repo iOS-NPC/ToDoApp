@@ -7,7 +7,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+let DidDismissPostCommentViewController: Notification.Name = Notification.Name("DidDismissPostCommentViewController")
+
+class ViewController: UIViewController, SendTaskDelegate {
+    
+    func addTask() {
+        //추가 기능
+    }
     
     @IBOutlet weak var toDoTableView: UITableView!
     
@@ -20,6 +26,16 @@ class ViewController: UIViewController {
         
         toDoTableView.delegate = self
         toDoTableView.dataSource = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didDismissPostCommentNotification(_:)), name: DidDismissPostCommentViewController, object: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "modalAddTask" {
+            guard let viewController: AddViewController = segue.destination as? AddViewController
+            else {return}
+            viewController.delegate = self
+            
+        }
     }
     
     func makeNavigationBar() {
@@ -30,6 +46,12 @@ class ViewController: UIViewController {
     
     @objc func addNewTodo() {
         
+    }
+    @objc func didDismissPostCommentNotification(_ noti: Notification)
+    {
+          // task 추가
+
+
     }
 }
 
